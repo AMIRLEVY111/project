@@ -1,7 +1,3 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
@@ -23,12 +19,18 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
+        containerRegistry: 'docker-registery'  # Make sure this is correctly named
+        repository: 'amir3170/project'
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
         tags: |
           $(tag)
+
     - task: Docker@2
+      displayName: Push an image
       inputs:
-        containerRegistry: 'docker-registery'
+        containerRegistry: 'docker-registery'  # Make sure this is correctly named
         repository: 'amir3170/project'
-        command: 'push'
+        command: push
+        tags: |
+          $(tag)
