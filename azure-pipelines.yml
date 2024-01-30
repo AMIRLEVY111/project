@@ -6,6 +6,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  imageName: amir3170/project:$(tag)
 
 stages:
 - stage: Build
