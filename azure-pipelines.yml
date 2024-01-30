@@ -22,8 +22,8 @@ stages:
     - task: Docker@2
       displayName: Build and tag an image
       inputs:
-        containerRegistry: 'docker-registery'
-        repository: 'amir3170/project'
+        #containerRegistry: 'docker-registery'
+        #repository: 'amir3170/project'
         command: build
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
         tags: |
