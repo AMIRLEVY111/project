@@ -23,13 +23,15 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
         tags: |
           $(tag)
-          
-    - script: docker images
-      displayName: List Docker Images
+
+    # Retag the built image for the repository
+    - script: docker tag $(tag) amir3170/project:$(tag)
+      displayName: Retag Image
+
     - task: Docker@2
       displayName: Push an image
       inputs:
-        containerRegistry: 'docker-registery'  # Make sure this is correctly named
+        containerRegistry: 'docker-registery'  # Ensure this is correctly named and configured
         repository: 'amir3170/project'
         command: push
         tags: |
