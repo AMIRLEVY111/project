@@ -1,4 +1,6 @@
-FROM python:3.9-slim
-COPY . /app
+FROM python:latest
+RUN apt-get update && apt-get install -y python3.9
 WORKDIR /app
-RUN python code.py
+COPY code.py /app
+CMD ["python", "./code.py"]
+
