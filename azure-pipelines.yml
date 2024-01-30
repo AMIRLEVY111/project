@@ -1,13 +1,15 @@
 trigger:
-- main
-
+  branches:
+    include:
+    - main  # Assuming you want to trigger the build on changes to the main branch
+ 
 resources:
 - repo: self
-
+ 
 variables:
   tag: '$(Build.BuildId)'
-  imageName: amir3170/project:$(tag)
-
+  imageName: 'amir3170/project:$(tag)'
+ 
 stages:
 - stage: Build
   displayName: Build image
@@ -18,22 +20,25 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
-        tags: |
-          $(tag)
-           
-    - task: Docker@2
-      displayName: login
+      displayName: Build and tag an image
       inputs:
         containerRegistry: 'docker-registery'
-        command: 'login'
+        repository: 'amir3170/project'
+        command: build
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
+        tags: |
+          $(tag)
+ 
     - task: Docker@2
-      displayName: Push an image
+      displayName: Log in to Docker Hub
       inputs:
-        containerRegistry: 'docker-registery'  # Make sure this is correctly named
+        command: login
+        containerRegistry: 'docker-registery'
+ 
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: 'docker-registery'
         repository: 'amir3170/project'
         command: push
         tags: |
