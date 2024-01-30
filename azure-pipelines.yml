@@ -1,0 +1,36 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: 'docker-registery'  # Make sure this is correctly named
+        repository: 'amir3170/project'
+        command: build
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
+        tags: |
+          $(tag)
+
+    - task: Docker@2
+      displayName: Push an image
+      inputs:
+        containerRegistry: 'docker-registery'  # Make sure this is correctly named
+        repository: 'amir3170/project'
+        command: push
+        tags: |
+          $(tag)
