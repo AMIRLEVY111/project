@@ -18,7 +18,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'docker-registery'
+        containerRegistry: 'azure-registery'
         command: 'login'
     - task: Docker@2
       displayName: Building a new container and pushing to docker hub
