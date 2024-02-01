@@ -29,4 +29,4 @@ stages:
         containerRegistry: 'docker-registery'
         repository: 'amir-project'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
