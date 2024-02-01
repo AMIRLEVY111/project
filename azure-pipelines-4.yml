@@ -26,7 +26,6 @@ stages:
         command: 'login'
     - task: Docker@2
       inputs:
-        containerRegistry: 'docker-registery'
-        repository: 'amir-project'
+        repository: 'amir3170/project'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
