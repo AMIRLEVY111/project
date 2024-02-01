@@ -28,4 +28,4 @@ stages:
       inputs:
         repository: 'amir3170/project'
         command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile.dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
